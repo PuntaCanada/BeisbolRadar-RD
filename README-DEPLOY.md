@@ -1,0 +1,1 @@
+Cloudflare Pages: main, framework None, build command empty, output public. Foundation only; no historical imports or live data yet. Run python3 -m unittest discover -s tests.

@@ -1,0 +1,3 @@
+# Sources (2026-11-26)
+SABR https://sabr.org/lahman-database/ lists 1871–2025 CSV. Verify bundled CC BY-SA 3.0 and third-party Seamheads terms before import; preserve attribution and share-alike. Retrosheet https://retrosheet.org/downloads/csvdownloads.html permits commercial use with required prominent notice; retain exact notice before publishing. No historical records imported yet.
+API-SPORTS https://api-sports.io/terms does not grant publication licenses. LIDOM listed at https://api-sports.io/sports/baseball; no authenticated test/key. No paid service. RSS candidates https://lidom.com/feed/ fetch failed and https://www.mlb.com/feeds/news/rss.xml unsupported XML in research client. No republished content until rights verified. No logos or active advertising.

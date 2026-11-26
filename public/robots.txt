@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://beisbolradar-rd.pages.dev/sitemap.xml
