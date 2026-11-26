@@ -23,7 +23,21 @@ try:
     page.goto('http://127.0.0.1:8766/'+lang+'/mlb/')
     page.locator('input[type=search]').fill('20250318')
     page.locator('tbody tr').first.wait_for()
-    assert '20250318' in page.locator('tbody tr').first.inner_text()
+    expected={'es':'18/03/2025','en':'03/18/2025','de':'18.03.2025','fr':'18/03/2025','it':'18/03/2025'}[lang]
+    date=page.locator('tbody tr').first.locator('time')
+    assert date.inner_text()==expected
+    assert date.get_attribute('datetime')=='2025-03-18'
+    for query in (expected,'2025-03-18'):
+     page.locator('input[type=search]').fill(query)
+     assert page.locator('tbody tr').count()==1
+     assert date.inner_text()==expected
+    page.locator('input[type=search]').fill('2025')
+    page.locator('thead th button').first.click()
+    dates=page.locator('tbody time').evaluate_all('(nodes)=>nodes.map(n=>n.dateTime)')
+    assert len(dates)==2430 and dates==sorted(dates)
+    page.locator('thead th button').first.click()
+    dates=page.locator('tbody time').evaluate_all('(nodes)=>nodes.map(n=>n.dateTime)')
+    assert dates==sorted(dates,reverse=True)
     assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
     print('Stats interactions OK',lang,width)
   browser.close()

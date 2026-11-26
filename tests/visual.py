@@ -21,6 +21,9 @@ try:
      assert page.locator('#leaders .rank-row').count()==5
      assert page.locator('#decades progress').count()>0
      assert page.locator('#recent .score-row').count()==5
+     for item in page.locator('#recent time').all():
+      y,m,d=item.get_attribute('datetime').split('-')
+      assert item.inner_text()==(f'{m}/{d}/{y}' if lang=='en' else f'{d}.{m}.{y}' if lang=='de' else f'{d}/{m}/{y}')
      assert page.locator('.team').count()==6
      before=page.locator('#leaders').inner_text()
      page.locator('#metric').select_option('pitching.W')
