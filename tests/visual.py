@@ -34,10 +34,17 @@ try:
      assert page.locator('tbody tr').count()==1
      page.locator('tbody button').click()
      assert page.locator('h2').inner_text()=='Fernando Abad'
+     assert page.locator('.profile-metrics strong').all_inner_texts()==['11','406','9','292']
+     assert page.locator('.scroll-hint').count()==2
      if lang=='es': page.screenshot(path=f'visual-review/{lang}-{width}-{theme}-profile.png',full_page=True)
      page.goto('http://127.0.0.1:8767/'+lang+'/mlb/')
      page.locator('input[type=search]').fill('20250318')
      page.locator('tbody tr').first.wait_for()
+     assert page.locator('tbody tr').count()>0
+     assert page.locator('tbody tr').first.locator('td').nth(1).inner_text() in ('Los Angeles Dodgers','Chicago Cubs')
+     if width==390:
+      assert page.locator('tbody tr').first.locator('td').last.evaluate('(e)=>{const r=e.getBoundingClientRect();return r.left>=0 && r.right<=innerWidth}')
+      assert page.locator('.stats-scroll').evaluate('(e)=>e.scrollWidth<=e.clientWidth')
      if lang=='es': page.screenshot(path=f'visual-review/{lang}-{width}-{theme}-mlb.png',full_page=True)
      print('Dashboard visual checks OK',lang,width,theme)
     page.close()
