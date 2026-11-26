@@ -1,0 +1,4 @@
+# Historical imports
+SABR Lahman 2025 release: https://sabr.org/lahman-database/ (Jan 2 2026; BOM update Feb 18). Copyright 1996–2025 SABR, Sean Lahman donation. CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/; derived player JSON under same license. Exclude non-AL/NL records to avoid separate Seamheads league data. Obtain reviewed CSV files and readme from official distribution. Birthplace is not nationality. Missing numeric fields remain null.
+Retrosheet: https://www.retrosheet.org/downloads/csvdownloads.html permits commercial use with prominent notice. Use reviewed regular-season traditional game log CSV (not daily log schema); verify archive contents first.
+Run python3 scripts/import_history.py /path/to/lahman /path/to/GL2025.TXT /tmp/review-history. Review counts and checksums before copying to public/data; not yet published. No API key, no verified live data rights. RSS diagnostics only, never republication.

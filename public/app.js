@@ -1,0 +1,1 @@
+const r=document.documentElement;try{const t=localStorage.getItem('theme');if(['light','dark'].includes(t))r.dataset.theme=t}catch{}document.querySelector('#theme')?.addEventListener('click',()=>{r.dataset.theme=(r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches)?'light':'dark';try{localStorage.setItem('theme',r.dataset.theme)}catch{}});

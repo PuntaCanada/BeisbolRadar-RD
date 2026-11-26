@@ -1,0 +1,30 @@
+from playwright.sync_api import sync_playwright
+from subprocess import Popen
+import urllib.request,time
+server=Popen(['python3','-m','http.server','8766','--directory','public'])
+try:
+ for _ in range(50):
+  try:
+   urllib.request.urlopen('http://127.0.0.1:8766/').close();break
+  except OSError: time.sleep(.1)
+ with sync_playwright() as p:
+  browser=p.chromium.launch()
+  for width in (390,1280):
+   page=browser.new_page(viewport={'width':width,'height':844})
+   for lang in ('es','en','de','fr','it'):
+    page.goto('http://127.0.0.1:8766/'+lang+'/players/')
+    search=page.locator('input[type=search]')
+    search.fill('Fernando Abad')
+    page.locator('tbody button',has_text='Fernando Abad').click()
+    assert page.locator('h2').inner_text()=='Fernando Abad'
+    assert page.locator('table').count()==2
+    page.locator('table').first.locator('th button').first.click()
+    assert page.locator('table').first.locator('tbody tr').count()>1
+    page.goto('http://127.0.0.1:8766/'+lang+'/mlb/')
+    page.locator('input[type=search]').fill('20250318')
+    page.locator('tbody tr').first.wait_for()
+    assert '20250318' in page.locator('tbody tr').first.inner_text()
+    assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+    print('Stats interactions OK',lang,width)
+  browser.close()
+finally: server.terminate();server.wait()
